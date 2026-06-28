@@ -30,7 +30,7 @@ jobs:
 
     steps:
       - name: Install base dependencies
-        run: dnf -y install git tar xz
+        run: dnf -y install apt debian-keyring git-core
 
       - name: Checkout
         uses: actions/checkout@v7
