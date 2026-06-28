@@ -27,7 +27,9 @@ jobs:
           - arch: arm64
             runner: ubuntu-24.04-arm
     runs-on: ${{ matrix.runner }}
-    container: fedora:44
+    container:
+      image: fedora:44
+      options: --privileged
 
     steps:
       - name: Install base dependencies
