@@ -10,6 +10,8 @@ jobs:
           - distro: debian
             release: trixie
           - distro: debian
+            release: testing
+          - distro: debian
             release: sid
         arch: [x86-64, arm64]
         include:
