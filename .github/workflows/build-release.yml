@@ -19,8 +19,8 @@ jobs:
             runner: ubuntu-24.04
           - arch: arm64
             runner: ubuntu-24.04-arm
+      fail-fast: false
     runs-on: ${{ matrix.runner }}
-    fail-fast: false
 
     steps:
       - name: Set up mkosi
