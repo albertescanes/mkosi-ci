@@ -1,4 +1,4 @@
-name: Build and Release
+name: Build and Release Debian testing
 
 on: [push, workflow_dispatch]
 
@@ -6,13 +6,6 @@ jobs:
   build:
     strategy:
       matrix:
-        target:
-          - distro: debian
-            release: trixie
-          - distro: debian
-            release: testing
-          - distro: debian
-            release: sid
         arch: [x86-64, arm64]
         include:
           - arch: x86-64
@@ -24,7 +17,7 @@ jobs:
 
     steps:
       - name: Print kernel version
-        run: uname -rs
+        run: uname -r
 
       - name: Set up mkosi
         uses: systemd/mkosi@main
@@ -33,16 +26,4 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Build image
-        run: mkosi -d ${{ matrix.target.distro }} -r ${{ matrix.target.release }}
-
-      - name: Generate checksum file
-        run: for f in *.*; do sha256sum $f > $f.sha256; done
-        working-directory: mkosi.output
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: ${{ matrix.target.distro }}-${{ matrix.target.release }}_${{ matrix.arch }}
-          path: mkosi.output/*.*
-          if-no-files-found: error
-          retention-days: 1
+        run: mkosi --debug
